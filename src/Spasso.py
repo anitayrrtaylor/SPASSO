@@ -49,6 +49,7 @@ def spasso():
     cruise = Library.choose_cruise()
     
     GlobalVars.init_dataDir(cruise)
+    Library.clean_wrk()   # wipe stale scratch files from any prior/failed run (prevents KeyError: 'longitude')
     GlobalVars.init_prodDate()
     Library.Listproducts()
 

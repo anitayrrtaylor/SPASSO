@@ -1066,7 +1066,7 @@ class OW(Load,Create):
         self.d3_name = 'time'
         self.var_name = 'ow'
         self.var_units = 'd$^{-2}$'
-        self.cmap = cb.cbmap("cb.bird_r")
+        self.cmap = cb.cbmap("cb.bird")
         self.tit = 'Okubo-Weiss parameter'
     
 class KE(Load,Create):

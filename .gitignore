@@ -1,0 +1,43 @@
+# --- Credentials safety ---
+# Ignore user-created cruise config files (they hold Copernicus passwords),
+# but keep the example config tracked as a template.
+Cruises/*/config_*.ini
+!Cruises/WMedSeaExample/config_WMedSeaExample.ini
+
+# --- macOS ---
+.DS_Store
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# --- Virtual environments ---
+venv/
+.venv/
+env/
+
+# --- Downloaded satellite & bathymetry data (large, auto-downloaded each run) ---
+# Ignore everything inside the Data/ subfolders (ALTI, SST, SSS, CHL, MEDSEA,
+# BATHY, and any future ones), but keep the empty folder structure (.gitkeep
+# placeholders) and the small reference image tracked.
+Data/*/*
+!Data/*/.gitkeep
+!Data/BATHY/ETOPO_global_map_2022.png
+
+# --- Per-cruise generated outputs (regenerated on every run) ---
+Cruises/*/Figures/
+Cruises/*/Bulletin/
+Cruises/*/Processed/
+Cruises/*/Logs/
+Cruises/*/Wrk/
+
+# --- LaTeX build artifacts ---
+*.aux
+*.log
+*.out
+*.toc
+pdflatex.log

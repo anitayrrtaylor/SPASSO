@@ -27,8 +27,11 @@ def fill_document(doc):
     """
     with doc.create(Center()) as centered:
         centered.append('**********************************************')
-        centered.append(bold('\nExecutive Summary'))
-        centered.append('\n\n Type here your executive summary\n')
+        centered.append(NoEscape(r'\\'))
+        centered.append(bold('Executive Summary'))
+        centered.append(NoEscape(r'\\'))
+        centered.append('Type here your executive summary')
+        centered.append(NoEscape(r'\\'))
         centered.append('**********************************************')
     
     with doc.create(Section('Ongoing operations and upcoming stations')):
@@ -71,6 +74,17 @@ def fill_document(doc):
                         fig.add_image(f, width='300px')
                 doc.append(Command(command='clearpage'))
             
+        with doc.create(Subsection('SSS analysis')):
+            files = glob.glob(os.path.join(GlobalVars.Dir['dir_wrk'], '*SSS*.png'))
+            if not files:
+                doc.append('No figures done.')
+            else:
+                doc.append('Type here.')
+                for f in files:
+                    with doc.create(Figure(position='h!')) as fig:
+                        fig.add_image(f, width='300px')
+                doc.append(Command(command='clearpage'))
+
         with doc.create(Subsection('Chlorophyll analysis')):
             files = glob.glob(os.path.join(GlobalVars.Dir['dir_wrk'], '*CHL*.png'))
             if not files:
@@ -99,20 +113,9 @@ def fill_document(doc):
                     with doc.create(Figure(position='h!')) as fig:
                         fig.add_image(f, width='300px')
                 doc.append(Command(command='clearpage'))
-                        
-        with doc.create(Subsection('Wave forecast analysis')):
-            files = glob.glob(os.path.join(GlobalVars.Dir['dir_wrk'], '*WAVF*.png'))
-            if not files:
-                doc.append('No figures done.')
-            else:
-                doc.append('Type here.')
-                for f in files:
-                    with doc.create(Figure(position='h!')) as fig:
-                        fig.add_image(f, width='300px')
-                doc.append(Command(command='clearpage'))
     
-    with doc.create(Center()):
-        doc.append(bold('Acknowledgments'))
+        with doc.create(Center()):
+        		doc.append(bold('Acknowledgments'))
     if GlobalVars.Bull['acknow']:
         with open(os.path.join(GlobalVars.Dir['cruise_path'], GlobalVars.Bull['acknow'])) as f:
             contents = f.read()
@@ -134,7 +137,7 @@ def find_latex_compiler():
 
 def create(cruise):
     # Document with `\maketitle` command activated
-    geometry_options = {"margin": "0.5in"}
+    geometry_options = {"margin": "0.5in", "footskip": "0.25in"}
     doc = Document(geometry_options=geometry_options)
 
     doc.preamble.append(Command('title', '['+cruise+']: SPASSO Images Analysis'))

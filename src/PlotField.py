@@ -198,14 +198,7 @@ class PlotField():
             lat_stat = [float(x) for x in GlobalVars.config.get('stations','coordlat').split(',')]
             stat = [str(x) for x in GlobalVars.config.get('stations','name').split(',')]
             x_stat,y_stat = mymap(lon_stat,lat_stat)
-            mymap.scatter(x_stat,y_stat,s=4,color='k',zorder=1)
-            mymap.plot(x_stat,y_stat,'-',color='k',zorder=1,linewidth=0.5)
-            lons = [x - (30/60) for x in lon_stat]
-            lats = [x - (5/60) for x in lat_stat]
-            tx,ty = mymap(lons,lats)
-            if ii >= 0:
-                for i, txt in enumerate(stat):
-                    plt.annotate(txt,(tx[i],ty[i]),size=7,color='r')
+            mymap.scatter(x_stat,y_stat,s=5,color='red',zorder=10)
             return
         
         def waypoints(mymap,ii,nc,**kwargs):
